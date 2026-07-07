@@ -1820,3 +1820,28 @@ body {
         right: 10%;
     }
 }
+
+/* --- TRANSICIONES DE CARGA SUAVE DE IMÁGENES (BLUR-UP) --- */
+.blur-up-img {
+    filter: blur(12px);
+    opacity: 0.25;
+    transition: filter 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: filter, opacity;
+}
+
+.blur-up-img.loaded {
+    filter: blur(0);
+    opacity: 1;
+}
+
+/* Evitar conflictos con los efectos hover y permitir zoom */
+.card-img-container img.blur-up-img {
+    transition: filter 0.7s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.5s ease;
+}
+
+.service-card:hover .card-img-container img.blur-up-img.loaded {
+    transform: scale(1.05) rotate(0.5deg); /* Efecto zoom y leve rotación */
+}

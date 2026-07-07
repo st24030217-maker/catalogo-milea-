@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { Service } from "@/data/services";
@@ -10,6 +11,7 @@ interface ServiceCardProps {
 }
 
 export default function ServiceCard({ service, onClick }: ServiceCardProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
   // Obtener icono dinámicamente de Lucide
   const IconComponent = (Icons as any)[service.icono] || Icons.HelpCircle;
 
@@ -27,7 +29,10 @@ export default function ServiceCard({ service, onClick }: ServiceCardProps) {
         <img
           src={service.imagen}
           alt={service.nombre}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          onLoad={() => setIsLoaded(true)}
+          className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:rotate-[0.5deg] ${
+            isLoaded ? "blur-0 scale-100 opacity-100" : "blur-md scale-[1.04] opacity-30"
+          }`}
         />
         
         {/* Capa de overlay degradada blanca/oscura */}

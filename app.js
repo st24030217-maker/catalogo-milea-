@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             card.innerHTML = `
                 <div class="card-img-container">
-                    <img src="${s.imagen}" alt="${s.nombre}">
+                    <img src="${s.imagen}" alt="${s.nombre}" class="blur-up-img" onload="this.classList.add('loaded')">
                     <div class="card-gradient-overlay"></div>
                     <div class="card-badges">${badgeHtml}</div>
                     <div class="card-icon-floater">
@@ -346,8 +346,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- DETALLE MODAL LOGIC ---
     function openModal(service) {
-        document.getElementById("modal-img").src = service.imagen;
-        document.getElementById("modal-img").alt = service.nombre;
+        const modalImg = document.getElementById("modal-img");
+        modalImg.classList.remove("loaded");
+        modalImg.src = service.imagen;
+        modalImg.alt = service.nombre;
         document.getElementById("modal-category").textContent = service.categoria;
         document.getElementById("modal-title").textContent = service.nombre;
         document.getElementById("modal-rating").textContent = `${service.rating.toFixed(1)} / 5.0`;
@@ -371,7 +373,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const item = document.createElement("div");
                 item.className = "related-card";
                 item.innerHTML = `
-                    <img src="${rel.imagen}" alt="${rel.nombre}" class="related-img">
+                    <img src="${rel.imagen}" alt="${rel.nombre}" class="related-img blur-up-img" onload="this.classList.add('loaded')">
                     <div class="related-info">
                         <span class="related-title">${rel.nombre}</span>
                         <span class="related-price">${rel.precioRango.split(" ")[0]}</span>

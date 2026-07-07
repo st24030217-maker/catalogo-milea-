@@ -9,6 +9,26 @@ import ServiceDetailModal from "@/components/ServiceDetailModal";
 import SkeletonCard from "@/components/SkeletonCard";
 import { SERVICIOS, CATEGORIAS, ESTADISTICAS, Service } from "@/data/services";
 
+function BlurUpImage({ src, alt, className = "", ...props }: { src: string; alt: string; className?: string; [key: string]: any }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [src]);
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onLoad={() => setIsLoaded(true)}
+      className={`${className} transition-all duration-700 ${
+        isLoaded ? "blur-0 scale-100 opacity-100" : "blur-md scale-[1.04] opacity-35"
+      }`}
+      {...props}
+    />
+  );
+}
+
 // Componente para contador ascendente animado
 function AnimatedCounter({ value, suffix = "", duration = 1.5 }: { value: number; suffix?: string; duration?: number }) {
   const [count, setCount] = useState(0);
@@ -416,10 +436,10 @@ export default function Home() {
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                   >
                     <div className="relative w-full h-72 sm:h-80 rounded-3xl overflow-hidden bg-zinc-50 border border-zinc-100 group">
-                      <img
+                      <BlurUpImage
                         src={proj.imagen}
                         alt={proj.titulo}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:rotate-[0.5deg]"
                       />
                       <div className="absolute bottom-4 left-4 z-10">
                         <span className="bg-white/90 backdrop-blur-md text-zinc-800 font-sans font-bold text-[0.62rem] uppercase tracking-wider px-3.5 py-1.5 rounded-full border border-black/5">

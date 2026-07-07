@@ -1,8 +1,29 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { Service } from "@/data/services";
+
+function BlurUpImage({ src, alt, className = "", ...props }: { src: string; alt: string; className?: string; [key: string]: any }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [src]);
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onLoad={() => setIsLoaded(true)}
+      className={`${className} transition-all duration-700 ${
+        isLoaded ? "blur-0 scale-100 opacity-100" : "blur-md scale-[1.04] opacity-35"
+      }`}
+      {...props}
+    />
+  );
+}
 
 interface ServiceDetailModalProps {
   service: Service | null;
@@ -51,7 +72,7 @@ export default function ServiceDetailModal({
         <div className="overflow-y-auto flex-grow">
           {/* Hero Image Section */}
           <div className="relative w-full h-64 sm:h-80 bg-zinc-100">
-            <img
+            <BlurUpImage
               src={service.imagen}
               alt={service.nombre}
               className="w-full h-full object-cover"
@@ -145,7 +166,7 @@ export default function ServiceDetailModal({
                       onClick={() => onSelectService(rel)}
                       className="group flex gap-3 p-3 bg-zinc-50 border border-zinc-200 rounded-xl cursor-pointer hover:border-[#fc3584]/30 hover:bg-zinc-100 transition-all"
                     >
-                      <img
+                      <BlurUpImage
                         src={rel.imagen}
                         alt={rel.nombre}
                         className="w-12 h-12 object-cover rounded-lg bg-zinc-200"
