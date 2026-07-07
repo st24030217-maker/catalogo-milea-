@@ -183,28 +183,35 @@ body {
     }
 }
 
-/* Contador Carga */
-.counter-wrapper {
+/* Mensaje de Bienvenida en Carga */
+.welcome-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 1rem;
+    animation: fadeInText 1s ease-out forwards;
 }
 
-.counter-value {
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    font-weight: 900;
-    letter-spacing: -0.05em;
-    color: #ffffff;
-    text-shadow: 0 4px 15px rgba(252, 53, 132, 0.1);
+.welcome-text {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--milea-pink);
+    text-align: center;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 10px rgba(252, 53, 132, 0.15);
 }
 
-.counter-label {
-    font-size: 0.68rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: var(--text-muted);
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Transición Preloader loaded */

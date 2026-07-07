@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function simulateLoading() {
         const step = () => {
             if (progress >= 100) {
-                counterElement.textContent = "100%";
+                if (counterElement) counterElement.textContent = "100%";
                 indicatorRing.style.strokeDashoffset = 0;
                 setTimeout(revealApp, 450);
                 return;
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
             else increment = Math.random() * 6 + 3;
 
             progress = Math.min(progress + increment, 100);
-            counterElement.textContent = `${Math.round(progress).toString().padStart(2, '0')}%`;
+            if (counterElement) counterElement.textContent = `${Math.round(progress).toString().padStart(2, '0')}%`;
             indicatorRing.style.strokeDashoffset = ringCircumference - (progress / 100) * ringCircumference;
 
             let delay = Math.random() * 60 + 20;

@@ -148,15 +148,17 @@ export default function Loader({ onComplete }: LoaderProps) {
               />
             </div>
 
-            {/* Contador Digital */}
-            <div className="flex flex-col items-center">
-              <span className="font-sans font-black text-4xl tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-zinc-900 to-zinc-900/60 drop-shadow-[0_2px_8px_rgba(252,53,132,0.15)]">
-                {progress.toString().padStart(2, "0")}%
+            {/* Bienvenidos a MILEA estudio */}
+            <motion.div 
+              className="flex flex-col items-center mt-4"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <span className="font-serif italic text-2xl text-[#fc3584] tracking-wide drop-shadow-[0_2px_10px_rgba(252,53,132,0.15)]">
+                Bienvenidos a MILEA estudio
               </span>
-              <span className="text-[0.68rem] font-bold uppercase tracking-[0.25em] text-[#8c868c] mt-1">
-                Cargando Experiencia
-              </span>
-            </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       )}
