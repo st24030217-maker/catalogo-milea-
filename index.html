@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MILEA studio | Catálogo Interactivo Standalone</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Playfair+Display:ital,wght@1,400&family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- EFECTO DE FONDO LÍQUIDO FLUIDO -->
+    <div class="bg-fluids">
+        <div class="blur-circle circle-1" id="blob-1"></div>
+        <div class="blur-circle circle-2" id="blob-2"></div>
+        <div class="blur-circle circle-3" id="blob-3"></div>
+    </div>
+
+    <!-- PANTALLA DE CARGA (PRELOADER) -->
+    <div id="preloader">
+        <div class="curtain curtain-left"></div>
+        <div class="curtain curtain-right"></div>
+        
+        <div class="preloader-content">
+            <!-- Anillo SVG de carga y Logotipo -->
+            <div class="logo-ring-wrapper">
+                <svg class="progress-ring" width="240" height="240">
+                    <circle class="progress-ring-bg" stroke-width="2" fill="transparent" r="110" cx="120" cy="120"/>
+                    <circle id="progress-indicator" class="progress-ring-circle" stroke-width="3" fill="transparent" r="110" cx="120" cy="120"/>
+                </svg>
+                
+                <!-- Círculo central con logo -->
+                <img src="logo-milea.png" alt="MILEA studio" class="logo-image-preload">
+            </div>
+            
+            <!-- Contador Digital de Carga -->
+            <div class="counter-wrapper">
+                <div class="counter-value" id="counter-percent">00%</div>
+                <div class="counter-label">Cargando Experiencia</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP PRINCIPAL (CATÁLOGO REVELADO) -->
+    <div id="catalog-app">
+        <!-- Header -->
+        <header class="catalog-header">
+            <div class="catalog-logo">
+                <img src="logo-milea.png" alt="MILEA logo" class="header-logo-img">
+                <span>MILEA studio</span>
+            </div>
+            <div class="header-actions">
+                <nav class="hidden-mobile">
+                    <ul class="catalog-nav">
+                        <li><a href="#" class="active">Catálogo</a></li>
+                        <li><a href="#">Editorial</a></li>
+                        <li><a href="#">Estudio</a></li>
+                    </ul>
+                </nav>
+                <a href="https://wa.me/528712208801" target="_blank" rel="noopener noreferrer" class="whatsapp-header-link" title="WhatsApp Pedidos">
+                    <i data-lucide="message-circle"></i>
+                </a>
+                <a href="https://www.instagram.com/mileadesignstudio" target="_blank" rel="noopener noreferrer" class="instagram-header-link" title="Instagram">
+                    <i data-lucide="instagram"></i>
+                </a>
+            </div>
+        </header>
+        
+        <!-- Hero Section Asimétrico Editorial -->
+        <section class="hero-section">
+            <div class="hero-grid-editorial">
+                <!-- Columna Izquierda: Contenido y Estadísticas -->
+                <div class="hero-content-left">
+                    <img src="logo-milea.png" alt="MILEA studio" class="hero-logo-img">
+                    <span class="hero-subtitle">Diseño Gráfico & Papelería Fina</span>
+                    <h1 class="hero-title">Diseño gráfico de identidad y papelería social & creativa con alma <span>artesanal</span>.</h1>
+                    
+                    <!-- Estadísticas Animadas -->
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="120" id="stat-projects">0</h3>
+                            <span class="stat-label">Pedidos Entregados</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="85" id="stat-clients">0</h3>
+                            <span class="stat-label">Proyectos de Autor</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="98" id="stat-sat">0</h3>
+                            <span class="stat-label">Clientes Felices</span>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number" data-target="30" id="stat-allies">0</h3>
+                            <span class="stat-label">Marcas Creadas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Collage de Fotos Flotantes -->
+                <div class="hero-collage-right">
+                    <img src="portafolio-mileacards.jpg" alt="Tarjetas MILEA Fucsia" class="collage-img collage-img-1">
+                    <img src="portafolio-boletos.png" alt="Boletos Holográficos Mercafest" class="collage-img collage-img-2">
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTROS Y CONTROLES -->
+        <section class="controls-card">
+            <div class="controls-top">
+                <!-- Buscador -->
+                <div class="search-wrapper">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Buscar por servicio o palabra clave...">
+                </div>
+
+                <!-- Controles del lado derecho -->
+                <div class="filters-right">
+                    <!-- Slider de precio -->
+                    <div class="slider-wrapper">
+                        <i data-lucide="sliders-horizontal" class="pink-icon"></i>
+                        <span class="slider-label">Precio máx:</span>
+                        <input type="range" id="price-slider" min="300" max="5000" step="100" value="5000">
+                        <span class="slider-val" id="price-val">$5,000 MXN</span>
+                    </div>
+
+                    <!-- Ordenar -->
+                    <div class="sort-wrapper">
+                        <i data-lucide="arrow-up-down" class="pink-icon"></i>
+                        <select id="sort-select">
+                          <option value="featured">Destacados</option>
+                          <option value="price-asc">Precio: Bajo a Alto</option>
+                          <option value="price-desc">Precio: Alto a Bajo</option>
+                          <option value="popular">Más Popular</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chips de categorías -->
+            <div class="category-chips-row" id="category-chips-row">
+                <!-- Cargado dinámicamente -->
+            </div>
+        </section>
+
+        <!-- GRILLA DE TARJETAS / CONTENIDO -->
+        <section class="services-grid-wrapper">
+            <div class="services-grid" id="services-grid">
+                <!-- Tarjetas o Skeletons cargados por JS -->
+            </div>
+            
+            <!-- Sin Resultados -->
+            <div id="empty-state" class="empty-state-card" style="display: none;">
+                <div class="empty-icon-circle">
+                    <i data-lucide="info" class="large-icon"></i>
+                </div>
+                <h3>No encontramos ningún servicio coincidente</h3>
+                <p>Intenta ajustar tus términos de búsqueda o restablecer los filtros para volver a ver el portafolio completo de Milea.</p>
+                <button id="reset-filters-btn" class="btn-reset">Restablecer Filtros</button>
+            </div>
+        </section>
+
+        <!-- Sección Muestra de Trabajo -->
+        <section class="portfolio-section">
+            <div class="portfolio-header">
+                <span class="portfolio-subtitle">Portfolio de Autor</span>
+                <h2 class="portfolio-title">Muestra de Trabajo</h2>
+                <p class="portfolio-desc">Una cuidada selección de creaciones físicas y proyectos terminados que exhiben nuestro nivel de detalle, texturas y acabados premium.</p>
+            </div>
+            
+            <div class="portfolio-grid">
+                <!-- Tarjeta 1 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="portafolio-caligrafia.png" alt="Logotipo Caligráfico MILEA">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-badge">Caligrafía a Mano</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-card-category">Diseño de Autor</span>
+                        <h3>Logotipo Caligráfico MILEA</h3>
+                        <p>Diseño de logotipo gestual creado mediante lettering y caligrafía digitalizada de alta resolución.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="portafolio-mileacards.jpg" alt="Tarjetas de Presentación MILEA">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-badge">Papel Texturizado</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-card-category">Papelería Fina</span>
+                        <h3>Tarjetas de Presentación MILEA</h3>
+                        <p>Tarjetas de contacto oficiales del estudio impresas sobre papel mate fucsia texturizado de alto impacto.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="portafolio-boletos.png" alt="Boletos Holográficos Mercafest">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-badge">Foil Holográfico</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-card-category">Diseño Gráfico</span>
+                        <h3>Boletos Holográficos Mercafest</h3>
+                        <p>Diseño de boletos e impresión de seguridad con foil holográfico de estrellas y acabados metálicos láser.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="portafolio-flores1.jpg" alt="Ramo Eterno Flores de Listón">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-badge">Rosas de Satín</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-card-category">Papelería Social</span>
+                        <h3>Ramo Eterno 'Flores de Listón'</h3>
+                        <p>Arreglo de rosas eternas satinadas en rosa fucsia hechas a mano con detalles de mariposa calada dorada.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 5 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="portafolio-agenda.png" alt="Agenda Lila Carmen">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-badge">Grabado Personalizado</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-card-category">Diseño Editorial</span>
+                        <h3>Agenda Lila 'Carmen'</h3>
+                        <p>Agenda personalizada en vinipiel lavanda grabada con detalles de mariposas y nombre en tipografía cursiva.</p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 6 -->
+                <div class="portfolio-card">
+                    <div class="portfolio-img-container">
+                        <img src="portafolio-fotos.png" alt="Fotos Estilo Polaroid">
+                        <div class="portfolio-overlay">
+                            <span class="portfolio-badge">Detalles Creativos</span>
+                        </div>
+                    </div>
+                    <div class="portfolio-info">
+                        <span class="portfolio-card-category">Papelería Creativa</span>
+                        <h3>Fotos Estilo Polaroid</h3>
+                        <p>Impresión y post-procesado digital de fotografías retro tipo Polaroid cortadas y terminadas a mano.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pie de Página -->
+        <footer class="catalog-footer-static">
+            <div class="footer-socials-row">
+                <a href="https://wa.me/528712208801" target="_blank" rel="noopener noreferrer" class="whatsapp-footer-link">
+                    <i data-lucide="message-circle"></i> +52 871 220 8801
+                </a>
+                <a href="https://www.instagram.com/mileadesignstudio" target="_blank" rel="noopener noreferrer" class="instagram-footer-link">
+                    <i data-lucide="instagram"></i> @mileadesignstudio
+                </a>
+            </div>
+            <p>© <span id="current-year"></span> MILEA studio. Todos los derechos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- DETALLE MODAL -->
+    <div id="detail-modal" class="modal-overlay" style="display: none;">
+        <!-- Fondo clickeable para cerrar -->
+        <div class="modal-backdrop" id="modal-close-backdrop"></div>
+        
+        <div class="modal-card" id="modal-card-content">
+            <!-- Botón Cerrar -->
+            <button class="modal-close-btn" id="modal-close-btn">
+                <i data-lucide="x"></i>
+            </button>
+            
+            <div class="modal-scrollable">
+                <!-- Imagen Hero -->
+                <div class="modal-hero-img-container">
+                    <img id="modal-img" src="" alt="">
+                    <div class="modal-img-gradient"></div>
+                    <div class="modal-floating-header">
+                        <span id="modal-category" class="modal-category-badge"></span>
+                        <h2 id="modal-title"></h2>
+                    </div>
+                </div>
+
+                <!-- Info cuerpo -->
+                <div class="modal-body-content">
+                    <!-- Fila Metadatos -->
+                    <div class="modal-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-title">Calificación</span>
+                            <div class="meta-val star-color">
+                                <i data-lucide="star" class="fill-star"></i>
+                                <span id="modal-rating"></span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-title">Duración</span>
+                            <div class="meta-val">
+                                <i data-lucide="clock" class="pink-icon-sm"></i>
+                                <span id="modal-duration"></span>
+                            </div>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-title">Precio Estimado</span>
+                            <div class="meta-val">
+                                <span id="modal-price" class="gold-text"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Descripción extendida -->
+                    <div class="modal-section">
+                        <h4>Acerca de este servicio</h4>
+                        <p id="modal-desc-long"></p>
+                    </div>
+
+                    <!-- Tags -->
+                    <div class="modal-tags" id="modal-tags-container">
+                        <!-- Tags dinámicos -->
+                    </div>
+
+                    <!-- Recomendaciones relacionadas -->
+                    <div class="modal-section border-top-line" id="modal-related-section" style="display:none;">
+                        <h4>Servicios sugeridos</h4>
+                        <div class="related-grid" id="modal-related-grid">
+                            <!-- Items relacionados cargados dinámicamente -->
+                        </div>
+                    </div>
+
+                    <!-- Call To Action -->
+                    <div class="modal-cta-row">
+                        <div class="cta-left">
+                            <div class="cta-icon-circle">
+                                <i data-lucide="message-square"></i>
+                            </div>
+                            <div>
+                                <div class="cta-subtitle">¿Interesado?</div>
+                                <div class="cta-desc">Consulta y cotización gratuita.</div>
+                            </div>
+                        </div>
+                        <div class="modal-cta-buttons">
+                            <button class="btn-cta btn-whatsapp" id="btn-modal-whatsapp">
+                                <i data-lucide="message-circle"></i>
+                                Levantar Pedido
+                            </button>
+                            <button class="btn-cta btn-instagram" id="btn-modal-contact">
+                                <i data-lucide="instagram"></i>
+                                Enviar DM
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
