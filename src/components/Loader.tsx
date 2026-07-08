@@ -53,7 +53,8 @@ export default function Loader({ onComplete }: LoaderProps) {
       {!isExiting && (
         <motion.div
           className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-[#ffffff]"
-          exit={{ opacity: 1 }} // El desvanecimiento se maneja por las cortinas
+          exit={{ opacity: [1, 1] }} // Se mantiene opaco mientras las cortinas se abren
+          transition={{ duration: 1.2 }}
         >
           {/* Círculos de Fondo Fluido Difuminado */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">

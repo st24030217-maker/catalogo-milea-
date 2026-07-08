@@ -119,6 +119,7 @@ body {
     background-color: #ffffff; /* Fijo en blanco */
     z-index: 10;
     transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+    will-change: transform; /* Forzar aceleración por hardware */
 }
 
 .curtain-left {

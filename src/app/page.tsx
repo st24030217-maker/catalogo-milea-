@@ -191,8 +191,13 @@ export default function Home() {
         {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
       </AnimatePresence>
 
-      {!isLoading && (
-        <div className="min-h-screen w-full flex flex-col bg-white dark:bg-[#121212] text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+      <div 
+        className={`min-h-screen w-full flex flex-col bg-white dark:bg-[#121212] text-zinc-900 dark:text-zinc-100 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          isLoading 
+            ? "pointer-events-none opacity-0 scale-[0.97]" 
+            : "opacity-100 scale-100"
+        }`}
+      >
           
           {/* HEADER */}
           <header className="sticky top-0 z-40 bg-white/80 dark:bg-[#121212]/80 backdrop-blur-md border-b border-zinc-200/60 dark:border-zinc-800/60 px-6 sm:px-12 py-4 flex items-center justify-between">
@@ -491,7 +496,6 @@ export default function Home() {
           </AnimatePresence>
 
         </div>
-      )}
     </>
   );
 }
