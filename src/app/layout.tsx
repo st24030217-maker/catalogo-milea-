@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mileastudio.com"),
   title: "MILEA studio | Papelería Fina & Diseño de Autor",
   description: "Diseño gráfico de identidad y papelería social & creativa con alma artesanal. Invitaciones premium, branding comercial, packaging y diseño de autor.",
   openGraph: {
