@@ -101,11 +101,27 @@ let maxPrice = 5000;
 let sortBy = "featured";
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Inicializar Lucide Icons
-    lucide.createIcons();
+    // Función segura para inicializar iconos Lucide
+    function safeCreateIcons() {
+        try {
+            if (typeof lucide !== "undefined" && lucide.createIcons) {
+                lucide.createIcons();
+            } else {
+                console.warn("Lucide icons library not loaded yet.");
+            }
+        } catch (e) {
+            console.error("Error al inicializar iconos:", e);
+        }
+    }
 
-    // Actualizar año del footer
-    document.getElementById("current-year").textContent = new Date().getFullYear();
+    // Inicializar Lucide Icons de forma segura
+    safeCreateIcons();
+
+    // Actualizar año del footer de forma segura
+    const currentYearEl = document.getElementById("current-year");
+    if (currentYearEl) {
+        currentYearEl.textContent = new Date().getFullYear();
+    }
 
     // Elementos del DOM
     const counterElement = document.getElementById("counter-percent");
@@ -130,18 +146,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- ANILLO SVG CARGA ---
     const ringCircumference = 2 * Math.PI * 110; // r=110
-    indicatorRing.style.strokeDasharray = ringCircumference;
-    indicatorRing.style.strokeDashoffset = ringCircumference;
+    if (indicatorRing) {
+        indicatorRing.style.strokeDasharray = ringCircumference;
+        indicatorRing.style.strokeDashoffset = ringCircumference;
+    }
 
     // --- MOUSE PARALLAX FONDO ---
-    window.addEventListener("mousemove", (e) => {
-        const mouseX = e.clientX / window.innerWidth - 0.5;
-        const mouseY = e.clientY / window.innerHeight - 0.5;
-        
-        document.getElementById("blob-1").style.transform = `translate(${mouseX * 35}px, ${mouseY * 35}px)`;
-        document.getElementById("blob-2").style.transform = `translate(${mouseX * 70}px, ${mouseY * 70}px)`;
-        document.getElementById("blob-3").style.transform = `translate(${mouseX * 40}px, ${mouseY * 40}px)`;
-    });
+    // Solo activar en pantallas de escritorio (ancho mayor a 768px) para optimizar el rendimiento táctil
+    if (window.innerWidth > 768) {
+        window.addEventListener("mousemove", (e) => {
+            const blob1 = document.getElementById("blob-1");
+            const blob2 = document.getElementById("blob-2");
+            const blob3 = document.getElementById("blob-3");
+            
+            if (blob1 && blob2 && blob3) {
+                const mouseX = e.clientX / window.innerWidth - 0.5;
+                const mouseY = e.clientY / window.innerHeight - 0.5;
+                
+                blob1.style.transform = `translate(${mouseX * 35}px, ${mouseY * 35}px)`;
+                blob2.style.transform = `translate(${mouseX * 70}px, ${mouseY * 70}px)`;
+                blob3.style.transform = `translate(${mouseX * 40}px, ${mouseY * 40}px)`;
+            }
+        });
+    }
 
 
 
@@ -335,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         // Re-generar iconos Lucide para el HTML recién insertado
-        lucide.createIcons();
+        safeCreateIcons();
     }
 
     // --- TRANSICIÓN DE BÚSQUEDA FLUIDA ---
@@ -399,57 +426,65 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         // Mostrar
-        detailModal.style.display = "flex";
-        lucide.createIcons();
+        if (detailModal) detailModal.style.display = "flex";
+        safeCreateIcons();
     }
 
     function closeModal() {
-        detailModal.style.display = "none";
+        if (detailModal) detailModal.style.display = "none";
     }
 
     // Asignación de cierres
-    modalCloseBtn.addEventListener("click", closeModal);
-    modalCloseBackdrop.addEventListener("click", closeModal);
+    if (modalCloseBtn) modalCloseBtn.addEventListener("click", closeModal);
+    if (modalCloseBackdrop) modalCloseBackdrop.addEventListener("click", closeModal);
 
     // --- ACCIONES DE FILTRO ---
-    searchInput.addEventListener("input", (e) => {
-        searchQuery = e.target.value;
-        triggerFilterLoading();
-    });
-
-    priceSlider.addEventListener("input", (e) => {
-        maxPrice = parseInt(e.target.value);
-        priceVal.textContent = `$${maxPrice.toLocaleString()}`;
-        triggerFilterLoading();
-    });
-
-    sortSelect.addEventListener("change", (e) => {
-        sortBy = e.target.value;
-        triggerFilterLoading();
-    });
-
-    resetFiltersBtn.addEventListener("click", () => {
-        searchQuery = "";
-        selectedCategory = "Todos";
-        maxPrice = 5000;
-        sortBy = "featured";
-
-        searchInput.value = "";
-        priceSlider.value = 5000;
-        priceVal.textContent = "$5,000 MXN";
-        sortSelect.value = "featured";
-
-        // Reset chips
-        document.querySelectorAll(".chip").forEach(c => {
-            if (c.textContent === "Todos") c.classList.add("active");
-            else c.classList.remove("active");
+    if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+            searchQuery = e.target.value;
+            triggerFilterLoading();
         });
+    }
 
-        triggerFilterLoading();
-    });
+    if (priceSlider) {
+        priceSlider.addEventListener("input", (e) => {
+            maxPrice = parseInt(e.target.value);
+            if (priceVal) priceVal.textContent = `$${maxPrice.toLocaleString()}`;
+            triggerFilterLoading();
+        });
+    }
+
+    if (sortSelect) {
+        sortSelect.addEventListener("change", (e) => {
+            sortBy = e.target.value;
+            triggerFilterLoading();
+        });
+    }
+
+    if (resetFiltersBtn) {
+        resetFiltersBtn.addEventListener("click", () => {
+            searchQuery = "";
+            selectedCategory = "Todos";
+            maxPrice = 5000;
+            sortBy = "featured";
+
+            if (searchInput) searchInput.value = "";
+            if (priceSlider) priceSlider.value = 5000;
+            if (priceVal) priceVal.textContent = "$5,000 MXN";
+            if (sortSelect) sortSelect.value = "featured";
+
+            // Reset chips
+            document.querySelectorAll(".chip").forEach(c => {
+                if (c.textContent === "Todos") c.classList.add("active");
+                else c.classList.remove("active");
+            });
+
+            triggerFilterLoading();
+        });
+    }
 
     // Asegurar tema claro permanente
-    document.body.classList.remove("dark-theme");
+    if (document.body) document.body.classList.remove("dark-theme");
     localStorage.removeItem("theme");
 
     // --- INICIALIZACIÓN ---

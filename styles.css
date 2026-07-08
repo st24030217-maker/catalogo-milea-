@@ -48,6 +48,7 @@ body {
     overflow: hidden;
     z-index: 1;
     pointer-events: none;
+    transition: background 0.5s ease;
 }
 
 .blur-circle {
@@ -57,6 +58,7 @@ body {
     filter: blur(140px);
     opacity: 0.18;
     transition: transform 0.2s ease-out;
+    will-change: transform; /* Forzar aceleración por hardware */
 }
 
 .circle-1 {
@@ -80,6 +82,19 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0.12;
+}
+
+/* Optimización para móviles (pantallas menores a 768px):
+   Removemos los elementos con filter: blur() y transiciones que causan lag y sobrecalentamiento,
+   y los reemplazamos con un gradiente radial estático ultraligero que simula el mismo efecto visual. */
+@media (max-width: 768px) {
+    .bg-fluids {
+        background: radial-gradient(circle at 10% 20%, rgba(252, 53, 132, 0.08) 0%, transparent 50%),
+                    radial-gradient(circle at 90% 80%, rgba(252, 53, 132, 0.08) 0%, transparent 50%);
+    }
+    .blur-circle {
+        display: none !important;
+    }
 }
 
 /* --- PANTALLA DE CARGA (PRELOADER) --- */

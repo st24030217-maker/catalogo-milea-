@@ -57,8 +57,9 @@ export default function Loader({ onComplete }: LoaderProps) {
         >
           {/* Círculos de Fondo Fluido Difuminado */}
           <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            {/* Círculos animados pesados solo en desktop */}
             <motion.div
-              className="absolute w-[350px] h-[350px] rounded-full bg-[#fc3584] blur-[120px] opacity-[0.2]"
+              className="hidden sm:block absolute w-[350px] h-[350px] rounded-full bg-[#fc3584] blur-[120px] opacity-[0.2]"
               animate={{
                 x: [0, 80, -40, 0],
                 y: [0, 60, 90, 0],
@@ -72,7 +73,7 @@ export default function Loader({ onComplete }: LoaderProps) {
               style={{ top: "-10%", left: "-10%" }}
             />
             <motion.div
-              className="absolute w-[450px] h-[450px] rounded-full bg-[#fc3584] blur-[140px] opacity-[0.18]"
+              className="hidden sm:block absolute w-[450px] h-[450px] rounded-full bg-[#fc3584] blur-[140px] opacity-[0.18]"
               animate={{
                 x: [0, -90, 50, 0],
                 y: [0, -70, -100, 0],
@@ -85,6 +86,8 @@ export default function Loader({ onComplete }: LoaderProps) {
               }}
               style={{ bottom: "-15%", right: "-10%" }}
             />
+            {/* Gradiente radial ultraligero en móviles sin animaciones costosas */}
+            <div className="sm:hidden absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(252,53,132,0.08)_0%,transparent_50%),radial-gradient(circle_at_90%_80%,rgba(252,53,132,0.08)_0%,transparent_50%)]" />
           </div>
 
           {/* Cortina Izquierda */}
